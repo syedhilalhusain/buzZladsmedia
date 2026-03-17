@@ -13,6 +13,19 @@ export const Navbar: React.FC = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
+  const scrollToForm = () => {
+    console.log('Get Started clicked');
+    const formElement = document.getElementById('proposal-form');
+    console.log('Form element found:', formElement);
+    if (formElement) {
+      console.log('Scrolling to form...');
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      console.error('proposal-form element not found!');
+    }
+    setMobileMenuOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300 h-20 flex items-center">
       <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -41,9 +54,12 @@ export const Navbar: React.FC = () => {
         </div>
 
         <div className="hidden md:block">
-            <a href="#contact" className="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-black hover:bg-brand hover:text-black transition-all duration-300">
+            <button 
+              onClick={scrollToForm}
+              className="px-5 py-2.5 rounded-full text-sm font-bold bg-white text-black hover:bg-gray-100 transition-all duration-300"
+            >
                 Get Started
-            </a>
+            </button>
         </div>
 
         {/* Mobile Toggle */}
@@ -75,9 +91,12 @@ export const Navbar: React.FC = () => {
                   {item.name}
                 </a>
               ))}
-              <a href="#contact" className="mt-2 w-full py-3 text-center rounded-full bg-white text-black font-bold text-sm">
+              <button 
+                onClick={scrollToForm}
+                className="mt-2 w-full py-3 text-center rounded-full bg-white text-black font-bold text-sm hover:bg-gray-100 transition-all"
+              >
                 Get Started
-              </a>
+              </button>
             </div>
           </motion.div>
         )}

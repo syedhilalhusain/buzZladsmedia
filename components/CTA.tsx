@@ -21,7 +21,22 @@ export const CTA: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate API call
+    // Create message for WhatsApp
+    const whatsappMessage = `Hi, here's my proposal request:\n\nName: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company || 'Not specified'}\n\nChallenges:\n${formData.challenges}`;
+    
+    // Create email subject and body
+    const emailSubject = `Strategic Proposal Request from ${formData.name}`;
+    const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company || 'Not specified'}\n\nChallenges:\n${formData.challenges}`;
+    
+    // Open WhatsApp
+    const whatsappUrl = `https://wa.me/919528284864?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // Open Outlook
+    const outlookUrl = `mailto:info@buzzladsmedia.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+    window.open(outlookUrl, '_blank');
+    
+    // Show success message
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
@@ -30,7 +45,14 @@ export const CTA: React.FC = () => {
         setFormData({ name: '', email: '', company: '', challenges: '' });
         setSubmitted(false);
       }, 3000);
-    }, 1500);
+    }, 500);
+  };
+
+  const scrollToForm = () => {
+    const formElement = document.getElementById('proposal-form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -86,7 +108,7 @@ export const CTA: React.FC = () => {
         </div>
 
         {/* Strategic Proposal Section */}
-        <div className="max-w-6xl mx-auto px-6 mb-20">
+        <div id="proposal-form" className="max-w-6xl mx-auto px-6 mb-20">
           <div className="grid md:grid-cols-2 gap-8 items-stretch">
             {/* Left Panel - Dark */}
             <motion.div
@@ -252,19 +274,18 @@ export const CTA: React.FC = () => {
                     disabled={loading}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full text-black font-bold py-3 rounded-lg transition-all duration-300 mt-6"
+                    className="w-full text-black font-bold py-3 rounded-lg transition-all duration-300 mt-6 disabled:opacity-50"
                     style={{
-                      backgroundColor: '#2fcd69'
+                      backgroundColor: loading ? 'rgba(47, 205, 105, 0.5)' : '#2fcd69'
                     }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(47, 205, 105, 0.9)';
+                      if (!loading) {
+                        (e.currentTarget as HTMLElement).style.backgroundColor = 'rgba(47, 205, 105, 0.9)';
+                      }
                     }}
                     onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor = '#2fcd69';
-                    }}
-                    onDisabled={(disabled) => {
-                      if (disabled) {
-                        (event?.currentTarget as HTMLElement).style.opacity = '0.5';
+                      if (!loading) {
+                        (e.currentTarget as HTMLElement).style.backgroundColor = '#2fcd69';
                       }
                     }}
                   >
