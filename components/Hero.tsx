@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, Zap } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
@@ -36,8 +36,8 @@ export const Hero: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               className="group h-14 px-8 rounded-full bg-white text-black font-bold flex items-center gap-3 hover:bg-zinc-200 transition-all shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)]"
             >
-              Get Started
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Book a Free Call
+              <ArrowDown className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </motion.a>
             <motion.a 
               href="#work"
